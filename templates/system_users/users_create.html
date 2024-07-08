@@ -1,0 +1,40 @@
+{% extends 'layout_panel.html' %}
+{% load appcommon_html %}
+
+{% block js_code %}
+<script type="text/javascript">
+layui.use(function() {
+    var $ = layui.$;
+    var form = layui.form;
+
+    form.verify({
+        confirmPassword: function (value, item) {
+            var passwordValue = $('#id_pw1').val();
+            if (value !== passwordValue) {
+                return '两次密码输入不一致';
+            }
+        }
+    });
+});
+</script>
+{% endblock  %}
+
+{% block pagecontent %}
+{% include 'include_messages.html' %}
+<form id="form1" name="form1" method="post" class="form-horizontal layui-form">
+    {% csrf_token %}
+<div class="card">
+    <div class="card-body">
+{% for field in form %}
+            <div class="form-group row">
+                <label for="{{ field.id_for_label }}" class="col-sm-1 col-form-label">{{ field.label }}</label>
+                <div class="col-sm-11">{{ field }}</div>
+            </div>
+{% endfor %}
+    </div>
+    <div class="card-footer">
+        {% form_btn 'submit' %}
+    </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'layout_panel.html' %}
+{% load appcommon_html %}
+
+{% block pagecontent %}
+{% include 'include_messages.html' %}
+{{ form.errors }}
+<div class="card">
+    <div class="card-header bg-light">
+        <h3 class="card-title layui-font-24">{{ current_user }}</h3>
+        <div class="card-tools">
+            {% if current_user != 'root' %}
+<a href="{% url 'module_system:system_users:delete' current_user %}" class="btn btn-danger" lay-on="btn-del">删除</a>
+            {% endif %}
+        </div>
+    </div>
+<form id="form" name="form" method="post" class="form-horizontal layui-form">
+    {% csrf_token %}
+    <div class="card-body">
+    <div class="form-group row">
+        <label for="{{ form.real_name.id_for_label }}" class="col-sm-1 col-form-label">{{ form.real_name.label }}</label>
+        <div class="col-sm-11">{% if current_user == 'root' %}{{ current_user }}{% else %}{{ form.real_name }}{% endif %}</div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-1 col-form-label">密码：</label>
+        <div class="col-sm-11">
+            <a href="{% url 'module_system:system_users:pwd' current_user %}" class="btn btn-default">修改密码</a>
+        </div>
+    </div>
+
+    {% if current_user != 'root' %}
+    <div class="form-group row">
+        <label for="{{ form.is_admin.id_for_label }}" class="col-sm-1 col-form-label">{{ form.is_admin.label }}</label>
+        <div class="col-sm-11">{{ form.is_admin }}</div>
+    </div>
+    {% endif %}
+
+    <div class="form-group row">
+        <label for="{{ form.is_locked.id_for_label }}" class="col-sm-1 col-form-label">{{ form.is_locked.label }}</label>
+        <div class="col-sm-11">
+            <div class="icheck-danger icheck-inline">{{ form.is_locked }}</div>
+        </div>
+    </div>
+
+    </div>
+    <div class="card-footer">
+        {% form_btn 'submit' 'reset' %}
+    </div>
+</form>
+</div>
+{% endblock %}

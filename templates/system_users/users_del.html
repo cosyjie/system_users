@@ -1,0 +1,21 @@
+{% extends 'layout_panel.html' %}
+{% load appcommon_html %}
+
+{% block pagecontent %}
+{% include 'include_messages.html' %}
+
+<form id="form" name="form" method="post" class="form-horizontal">
+{% csrf_token %}
+    <div class="card">
+        <div class="card-body">
+<h4>确认要删除用户 <span class="text-danger">{{ current_user }}</span> 吗？</h4>
+<div class="icheck-danger icheck-inline">
+     {{ form.del_home }} <label for="{{ form.del_home.id_for_label }}">同时删除用户数据 {{ user_home }}</label>
+</div>
+        </div>
+        <div class="card-footer">
+            {% form_btn 'submit' %}
+        </div>
+    </div>
+</form>
+{% endblock %}
