@@ -28,6 +28,7 @@ def get_users(username=''):
         run_cmd = exec_result.stdout.strip().split('\n')
         for user in run_cmd:
             user_info = user.split(':')
+            print(user_info)
             if username != '':
                 if username == user_info[0]:
                     user_list = {
@@ -35,10 +36,10 @@ def get_users(username=''):
                     }
                     break
             else:
-                if '/home/' in user_info[5] or user_info[0] == 'root':
+                # if '/home/' in user_info[5] or user_info[0] == 'root':
                     user_list[user_info[0]] = {
-                        'username': user_info[0], 'uid': user_info[2], 'describe': user_info[4], 'home': user_info[5]
-                    }
+                            'username': user_info[0], 'uid': user_info[2], 'describe': user_info[4], 'home': user_info[5]
+                        }
     return user_list
 
 

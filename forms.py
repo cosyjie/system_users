@@ -24,7 +24,7 @@ class SystemUserAddForm(FormBase):
 class SystemUserForm(FormBase):
     real_name = forms.CharField(label='全名*', required=True, widget=forms.TextInput(attrs={
             'class': 'form-control col-sm-4', 'lay-verify': 'required', 'autocomplete': 'off',
-            'lay-reqtext': '全名不能为空！',
+            'lay-reqtext': '说明不能为空！',
     }))
     is_admin = forms.BooleanField(
         label='角色',  required=False, widget=forms.CheckboxInput(attrs={
